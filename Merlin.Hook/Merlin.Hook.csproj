@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>9d10bcac-8faf-4bd0-a0a2-8b4d5f460ab8</ProjectGuid>
+    <ProjectGuid>{9D10BCAC-8FAF-4BD0-A0A2-8B4D5F460AB8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Merlin.Hook</RootNamespace>
@@ -30,24 +30,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Concurrent\ConcurrentTaskManager.cs" />
+    <Compile Include="Core\TaskManagerGameObject.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\ScriptManager.cs" />
+    <Compile Include="Threading\ThreadManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Externals\Shared\Merlin.Communication\Merlin.Communication.csproj">
+      <Project>{c534a0a2-d72e-4ca8-bc77-e2f68d47a533}</Project>
+      <Name>Merlin.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Externals\Shared\Merlin.Concurrent\Merlin.Concurrent.csproj">
+      <Project>{a6d253c0-11e0-44b2-ab41-b3bda2ada732}</Project>
+      <Name>Merlin.Concurrent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Merlin.API\Merlin.API.csproj">
+      <Project>{14a830c4-62a8-4512-bace-310bb0b99eab}</Project>
+      <Name>Merlin.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Communication\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>

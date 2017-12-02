@@ -1,0 +1,6 @@
+[submodule "Externals/Shared"]
+	path = Externals/Shared
+	url = https://github.com/Merlin-dev/Merlin_core.git
+[submodule "Externals/Albion"]
+	path = Externals/Albion
+	url = https://github.com/klukule/AO_Binaries.git
