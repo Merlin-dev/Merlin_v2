@@ -1,4 +1,5 @@
-﻿using Merlin.Threading;
+﻿using Merlin.Core;
+using Merlin.Threading;
 using System;
 using System.Threading;
 
@@ -16,7 +17,7 @@ namespace Merlin.Concurrent
         /// </summary>
         public static void Initialize()
         {
-            //Create game object and "hook" it
+            TaskManagerGameObject.Create();
         }
 
         /// <summary>
