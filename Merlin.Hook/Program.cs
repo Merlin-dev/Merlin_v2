@@ -3,6 +3,9 @@ using Merlin.Concurrent;
 using Merlin.Threading;
 using System.Linq;
 
+/// <summary>
+/// 
+/// </summary>
 namespace Merlin.Hook
 {
     /// <summary>
@@ -35,6 +38,16 @@ namespace Merlin.Hook
                     ThreadInfo = ThreadManager.RunningThreads.ToArray()
                 });
             }, "Thread Info", 1000);
+
+            ConcurrentTaskManager.RunPeriodic(() =>
+            {
+                Debug.Log("Log");
+                Debug.LogAssert("Assert");
+                Debug.LogError("Error");
+                Debug.LogException(new System.Exception());
+                Debug.LogWarning("Warning");
+                Debug.LogFormat("Test {0} formatting", "asd");
+            }, "Debug testing", 5000);
             //TODO: More debugging states like: IsMounting etc... (generally character info, probably)
         }
     }
