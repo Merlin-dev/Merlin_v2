@@ -20,8 +20,7 @@ namespace Merlin.Communication
             Client = CommunicationManager.CreateClient(IPAddress.Loopback, port);
 
             //Start packet receiver
-            ConcurrentTaskManager.RunAsync(delegate 
-            {
+            ConcurrentTaskManager.RunAsync(() => {
                 while (true)
                 {
                     object obj = Client.Receive();

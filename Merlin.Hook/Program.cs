@@ -1,4 +1,7 @@
-﻿using Merlin.Concurrent;
+﻿using Merlin.Communication;
+using Merlin.Concurrent;
+using Merlin.Threading;
+using System.Linq;
 
 namespace Merlin.Hook
 {
@@ -13,13 +16,24 @@ namespace Merlin.Hook
         public static void Run()
         {
             ConcurrentTaskManager.Initialize();
-            //Initialize communication with server/GUI
-            Main();
+            ConcurrentTaskManager.RunAsync(() => {
+                CommunicationService.Initialize();
+                //CommunicationService.Client.Send(null) //Say hi to GUI, or send it to hell, or what ever
+                Main();
+            });
         }
 
         private static void Main()
         {
-            //Initialize some debugging stuff, like thread info packets etc...
+            //Send thread status every second to GUI
+            ConcurrentTaskManager.RunPeriodic(() => {
+                ThreadManager.UpdateThreadStates();
+                CommunicationService.Client.Send(new RunningThreadInfoCollection
+                {
+                    ThreadInfo = ThreadManager.RunningThreads.ToArray()
+                });
+            }, "Thread Info", 1000);
+            //TODO: More debugging states like: IsMounting etc... (generally character info, probably)
         }
     }
 }

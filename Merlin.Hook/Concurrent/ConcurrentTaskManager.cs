@@ -69,8 +69,7 @@ namespace Merlin.Concurrent
         /// <param name="timeout">The timeout.</param>
         public static void RunPeriodic(Action action, string name, int timeout)
         {
-            RunAsync(delegate
-            {
+            RunAsync(() => {
                 while (true)
                 {
                     try
