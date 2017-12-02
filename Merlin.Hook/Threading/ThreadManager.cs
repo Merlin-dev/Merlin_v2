@@ -1,10 +1,7 @@
-﻿using Merlin.Concurrent;
-using Merlin.Communication;
-using System;
+﻿using Merlin.Communication;
+using Merlin.Concurrent;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Merlin.Threading
 {
@@ -13,6 +10,15 @@ namespace Merlin.Threading
     /// </summary>
     public static class ThreadManager
     {
+        /// <summary>x
+        /// The list of currently running threads
+        /// </summary>
+        public static ConcurrentList<ThreadInfo> RunningThreads = new ConcurrentList<ThreadInfo>();
+
+        /// <summary>
+        /// List of threads created by the hook with their IDs as keys
+        /// </summary>
+        public static ConcurrentDictionary<int, Thread> ThreadMap = new ConcurrentDictionary<int, Thread>();
 
         /// <summary>
         /// Aborts the thread if specific ID.
@@ -39,6 +45,16 @@ namespace Merlin.Threading
         }
 
         /// <summary>
+        /// Executes the command on specified thread.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        public static void ExecuteThreadCommand(ThreadCommand command)
+        {
+            if (command.Command == "Abort")
+                Abort(command.ID);
+        }
+
+        /// <summary>
         /// Registers the thread.
         /// </summary>
         /// <param name="thread">The thread.</param>
@@ -47,7 +63,7 @@ namespace Merlin.Threading
         public static void RegisterThread(Thread thread, Thread parent, string name)
         {
             //Check if thread has no parent or has parent managed by us
-            if(parent == null || RunningThreads.Any((ThreadInfo i) => i.ManagedThreadId == parent.ManagedThreadId))
+            if (parent == null || RunningThreads.Any((ThreadInfo i) => i.ManagedThreadId == parent.ManagedThreadId))
             {
                 RunningThreads.Add(new ThreadInfo
                 {
@@ -58,15 +74,6 @@ namespace Merlin.Threading
 
                 ThreadMap[thread.ManagedThreadId] = thread;
             }
-        }
-
-        /// <summary>
-        /// Checks if the thread or child is alive.
-        /// </summary>
-        /// <param name="id">ID of thread.</param>
-        private static bool ThreadOrChildIsAlive(int id)
-        {
-            return ThreadMap[id].IsAlive ? true : (from i in RunningThreads where i.ParentManagedThreadId == id select i).Any((ThreadInfo i) => ThreadOrChildIsAlive(i.ManagedThreadId));
         }
 
         /// <summary>
@@ -92,12 +99,12 @@ namespace Merlin.Threading
         }
 
         /// <summary>
-        /// The list of currently running threads
+        /// Checks if the thread or child is alive.
         /// </summary>
-        public static ConcurrentList<ThreadInfo> RunningThreads = new ConcurrentList<ThreadInfo>();
-        /// <summary>
-        /// List of threads created by the hook with their IDs as keys
-        /// </summary>
-        public static ConcurrentDictionary<int, Thread> ThreadMap = new ConcurrentDictionary<int, Thread>();
+        /// <param name="id">ID of thread.</param>
+        private static bool ThreadOrChildIsAlive(int id)
+        {
+            return ThreadMap[id].IsAlive ? true : (from i in RunningThreads where i.ParentManagedThreadId == id select i).Any((ThreadInfo i) => ThreadOrChildIsAlive(i.ManagedThreadId));
+        }
     }
 }

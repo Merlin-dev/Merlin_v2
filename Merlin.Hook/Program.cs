@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Merlin.Concurrent;
 
 namespace Merlin.Hook
 {
@@ -16,7 +12,7 @@ namespace Merlin.Hook
         /// </summary>
         public static void Run()
         {
-            //Initialize task manager
+            ConcurrentTaskManager.Initialize();
             //Initialize communication with server/GUI
             Main();
         }

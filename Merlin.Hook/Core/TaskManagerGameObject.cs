@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Merlin.Concurrent;
 
 namespace Merlin.Hook.Core
 {
@@ -26,17 +22,15 @@ namespace Merlin.Hook.Core
 
         private void Start()
         {
-
         }
 
         private void OnEnable()
         {
-
         }
 
         private void Update()
         {
-            //Update task manager
+            ConcurrentTaskManager.Update();
         }
 
         private void OnDestroy()
