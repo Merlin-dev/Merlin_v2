@@ -61,6 +61,7 @@ namespace Merlin.Concurrent
             t.IsBackground = true;
             t.Start();
         }
+
         /// <summary>
         /// Runs action periodically on separate thread.
         /// </summary>
@@ -69,7 +70,8 @@ namespace Merlin.Concurrent
         /// <param name="timeout">The timeout.</param>
         public static void RunPeriodic(Action action, string name, int timeout)
         {
-            RunAsync(() => {
+            RunAsync(() =>
+            {
                 while (true)
                 {
                     try
@@ -116,6 +118,7 @@ namespace Merlin.Concurrent
                 }
             }
         }
+
         /// <summary>
         /// Action associated with specific thread
         /// </summary>

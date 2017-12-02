@@ -1,11 +1,6 @@
 ﻿using Merlin.Concurrent;
 using Merlin.Threading;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Merlin.Communication
 {
@@ -20,11 +15,12 @@ namespace Merlin.Communication
             Client = CommunicationManager.CreateClient(IPAddress.Loopback, port);
 
             //Start packet receiver
-            ConcurrentTaskManager.RunAsync(() => {
+            ConcurrentTaskManager.RunAsync(() =>
+            {
                 while (true)
                 {
                     object obj = Client.Receive();
-                    if(obj is ThreadCommand tc)
+                    if (obj is ThreadCommand tc)
                     {
                         ThreadManager.ExecuteThreadCommand(tc);
                     }

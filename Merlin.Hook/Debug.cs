@@ -1,9 +1,5 @@
 ﻿using Merlin.Communication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Merlin
 {
@@ -39,6 +35,7 @@ namespace Merlin
                 ClearLog = true
             });
         }
+
         /// <summary>
         /// Logs the specified message.
         /// </summary>
@@ -68,7 +65,6 @@ namespace Merlin
         /// </summary>
         /// <param name="message">The exception.</param>
         public static void LogException(Exception ex) => Log(ex.ToString(), "Exception");
-
 
         /// <summary>
         /// Logs the specified message formatted.

@@ -11,6 +11,7 @@ namespace Merlin.Core
     public class TaskManagerGameObject : MonoBehaviour
     {
         private static bool UserQuit;
+
         public static void Create()
         {
             DontDestroyOnLoad(new GameObject().AddComponent<TaskManagerGameObject>());
