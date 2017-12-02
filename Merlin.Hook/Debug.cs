@@ -49,7 +49,7 @@ namespace Merlin
         /// Logs the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public static void LogAssert(string message) => Log(message, "Asseert");
+        public static void LogAssert(string message) => Log(message, "Assert");
 
         /// <summary>
         /// Logs the specified message.
