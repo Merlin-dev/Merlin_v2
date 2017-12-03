@@ -40,7 +40,7 @@ namespace Merlin.Core
 
         private void Update()
         {
-            ConcurrentTaskManager.Update();
+            TaskManager.Update();
         }
 
         private void OnDestroy()

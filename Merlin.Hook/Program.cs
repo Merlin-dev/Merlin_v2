@@ -18,8 +18,8 @@ namespace Merlin.Hook
         /// </summary>
         public static void Run()
         {
-            ConcurrentTaskManager.Initialize();
-            ConcurrentTaskManager.RunAsync(() =>
+            TaskManager.Initialize();
+            TaskManager.RunAsync(() =>
             {
                 CommunicationService.Initialize();
                 //CommunicationService.Client.Send(null) //Say hi to GUI, or send it to hell, or what ever
@@ -30,7 +30,7 @@ namespace Merlin.Hook
         private static void Main()
         {
             //Send thread status every second to GUI
-            ConcurrentTaskManager.RunPeriodic(() =>
+            TaskManager.RunPeriodic(() =>
             {
                 ThreadManager.UpdateThreadStates();
                 CommunicationService.Client.Send(new RunningThreadInfoCollection
@@ -39,7 +39,7 @@ namespace Merlin.Hook
                 });
             }, "Thread Info", 1000);
 
-            ConcurrentTaskManager.RunPeriodic(() =>
+            TaskManager.RunPeriodic(() =>
             {
                 Debug.Log("Log");
                 Debug.LogAssert("Assert");

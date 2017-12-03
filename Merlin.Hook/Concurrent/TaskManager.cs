@@ -8,7 +8,7 @@ namespace Merlin.Concurrent
     /// <summary>
     /// Task manager
     /// </summary>
-    public static class ConcurrentTaskManager
+    public static class TaskManager
     {
         public static ConcurrentQueue<ThreadedAction> PendingActions = new ConcurrentQueue<ThreadedAction>();
 

@@ -15,7 +15,7 @@ namespace Merlin.Communication
             Client = CommunicationManager.CreateClient(IPAddress.Loopback, port);
 
             //Start packet receiver
-            ConcurrentTaskManager.RunAsync(() =>
+            TaskManager.RunAsync(() =>
             {
                 while (true)
                 {

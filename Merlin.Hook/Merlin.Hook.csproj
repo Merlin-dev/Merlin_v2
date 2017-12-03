@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\CommunicationService.cs" />
-    <Compile Include="Concurrent\ConcurrentTaskManager.cs" />
+    <Compile Include="Concurrent\TaskManager.cs" />
     <Compile Include="Core\TaskManagerGameObject.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Program.cs" />
