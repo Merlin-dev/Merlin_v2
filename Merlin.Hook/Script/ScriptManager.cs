@@ -1,5 +1,6 @@
 ﻿using Merlin.Concurrent;
 using Microsoft.CSharp;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Merlin.Script
     /// </summary>
     public class ScriptManager
     {
-        private static ConcurrentList<Script> _scripts = new ConcurrentList<Script>();
+        private static ConcurrentList<IScript> _scripts = new ConcurrentList<IScript>();
 
         /// <summary>
         /// Gets the scripts.
@@ -19,13 +20,17 @@ namespace Merlin.Script
         /// <value>
         /// The scripts.
         /// </value>
-        public static Script[] Scripts => _scripts.ToArray();
+        public static IScript[] Scripts => _scripts.ToArray();
 
         /// <summary>
         /// Clears the scripts.
         /// </summary>
         public static void ClearScripts()
         {
+            foreach (IScript script in _scripts)
+            {
+                script.OnDestroy();
+            }
             _scripts.Clear();
         }
 
@@ -43,10 +48,7 @@ namespace Merlin.Script
                 {"CompilerVersion", "v3.5" }
             });
 
-            //TODO: Check if param. nr.1 is referenced assemblies, i not use commended line bellow
-
             CompilerParameters options = new CompilerParameters(referencedAssemblies, outputPath);
-            //cp.ReferencedAssemblies.AddRange(referencedAssemblies);
             options.GenerateExecutable = true;
             options.GenerateInMemory = false;
 
@@ -56,10 +58,31 @@ namespace Merlin.Script
         }
 
         /// <summary>
+        /// Updates the scripts.
+        /// </summary>
+        public static void Update()
+        {
+            //NOTE: maybe execute in parallel
+            foreach (IScript script in _scripts)
+            {
+                try
+                {
+                    script.OnUpdate();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+            }
+        }
+
+        /// <summary>
         /// Executes the script.
         /// </summary>
         public static void ExecuteScript(/* Script info packet here */)
         {
+            //script.OnStart();
+            //_scripts.Add(script);
             //TODO: impl.
         }
     }
