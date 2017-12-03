@@ -4,7 +4,7 @@ using Merlin.Threading;
 using System.Linq;
 
 /// <summary>
-/// 
+///
 /// </summary>
 namespace Merlin.Hook
 {
