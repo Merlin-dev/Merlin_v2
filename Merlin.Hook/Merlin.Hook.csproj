@@ -55,6 +55,7 @@
     <Compile Include="Debug.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\Script.cs" />
     <Compile Include="Script\ScriptManager.cs" />
     <Compile Include="Threading\ThreadManager.cs" />
   </ItemGroup>
