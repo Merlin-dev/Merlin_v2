@@ -85,14 +85,7 @@ namespace Merlin.Script
         /// </summary>
         public static void ExecuteScript(ExecuteScript packet)
         {
-            AssemblyDefinition definition = AssemblyDefinition.ReadAssembly(packet.AssemblyPath);
-            Assembly assembly = null;
-            using (MemoryStream stream = new MemoryStream())
-            {
-                definition.Write(stream);
-                stream.Position = 0;
-                assembly = Assembly.Load(stream.ToArray());
-            }
+            //We need to use Minject, because this would load assembly regular way, and it would show in the assembly list
 
             //Find all scripts
             //
