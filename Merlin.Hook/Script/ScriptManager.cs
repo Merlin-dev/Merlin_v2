@@ -1,9 +1,13 @@
-﻿using Merlin.Concurrent;
+﻿using Merlin.Communication;
+using Merlin.Concurrent;
 using Microsoft.CSharp;
+using Mono.Cecil;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Merlin.Script
 {
@@ -79,8 +83,19 @@ namespace Merlin.Script
         /// <summary>
         /// Executes the script.
         /// </summary>
-        public static void ExecuteScript(/* Script info packet here */)
+        public static void ExecuteScript(ExecuteScript packet)
         {
+            AssemblyDefinition definition = AssemblyDefinition.ReadAssembly(packet.AssemblyPath);
+            Assembly assembly = null;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                definition.Write(stream);
+                stream.Position = 0;
+                assembly = Assembly.Load(stream.ToArray());
+            }
+
+            //Find all scripts
+            //
             //script.OnStart();
             //_scripts.Add(script);
             //TODO: impl.
