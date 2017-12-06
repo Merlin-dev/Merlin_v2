@@ -5,6 +5,7 @@ using Mono.Cecil;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -81,17 +82,25 @@ namespace Merlin.Script
         }
 
         /// <summary>
-        /// Executes the script.
+        /// Executes all scripts in the plugin.
         /// </summary>
-        public static void ExecuteScript(ExecuteScript packet)
+        public static void ExecutePlugin(ExecutePlugin packet)
         {
-            //We need to use Minject, because this would load assembly regular way, and it would show in the assembly list
+            if (MInject.MonoProcess.Attach(Process.GetCurrentProcess(), out MInject.MonoProcess process))
+            {
+                IntPtr domain = process.GetRootDomain();
+                process.ThreadAttach(domain);
+                process.SecuritySetMode(0);
+                process.DisableAssemblyLoadCallback();
 
-            //Find all scripts
-            //
-            //script.OnStart();
-            //_scripts.Add(script);
-            //TODO: impl.
+                Assembly script = Assembly.LoadFile(packet.AssemblyPath);
+
+                process.HideLastAssembly(domain);
+                process.EnableAssemblyLoadCallback();
+                process.Dispose();
+            }
+           /* script.OnStart();
+            _scripts.Add(script);*/
         }
     }
 }
