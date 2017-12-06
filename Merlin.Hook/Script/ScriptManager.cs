@@ -1,5 +1,6 @@
 ﻿using Merlin.Communication;
 using Merlin.Concurrent;
+using Merlin.Injector;
 using Microsoft.CSharp;
 using Mono.Cecil;
 using System;
@@ -86,21 +87,21 @@ namespace Merlin.Script
         /// </summary>
         public static void ExecutePlugin(ExecutePlugin packet)
         {
-            if (MInject.MonoProcess.Attach(Process.GetCurrentProcess(), out MInject.MonoProcess process))
+            Assembly plugin = null;
+            if(Minject.HideAssemblyLoad(Process.GetCurrentProcess(), () => {
+                plugin = Assembly.LoadFile(packet.AssemblyPath);
+            }))
             {
-                IntPtr domain = process.GetRootDomain();
-                process.ThreadAttach(domain);
-                process.SecuritySetMode(0);
-                process.DisableAssemblyLoadCallback();
-
-                Assembly script = Assembly.LoadFile(packet.AssemblyPath);
-
-                process.HideLastAssembly(domain);
-                process.EnableAssemblyLoadCallback();
-                process.Dispose();
+                //TODO: Load plugin
+                /* script.OnStart();
+                _scripts.Add(script);*/
             }
-           /* script.OnStart();
-            _scripts.Add(script);*/
+            else
+            {
+                //TODO: Log failue
+            }
+            
+
         }
     }
 }

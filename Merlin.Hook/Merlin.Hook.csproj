@@ -38,21 +38,6 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MInject">
-      <HintPath>..\Externals\Minject\x86\MInject.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net35\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net35\Mono.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net35\Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net35\Mono.Cecil.Rocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -84,6 +69,10 @@
     <ProjectReference Include="..\Externals\Shared\Merlin.Concurrent\Merlin.Concurrent.csproj">
       <Project>{a6d253c0-11e0-44b2-ab41-b3bda2ada732}</Project>
       <Name>Merlin.Concurrent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Externals\Shared\Merlin.Injector.Minject\Merlin.Injector.Minject.csproj">
+      <Project>{046b55d0-2f34-4766-bf09-52dc16033ef2}</Project>
+      <Name>Merlin.Injector.Minject</Name>
     </ProjectReference>
     <ProjectReference Include="..\Merlin.API\Merlin.API.csproj">
       <Project>{14a830c4-62a8-4512-bace-310bb0b99eab}</Project>
